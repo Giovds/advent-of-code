@@ -1,4 +1,4 @@
-package com.giovds;
+package com.giovds.day3;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
