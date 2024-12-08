@@ -1,33 +1,28 @@
 package com.giovds.day7;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import com.giovds.Day;
+
 import java.util.Arrays;
-import java.util.List;
 
-import static com.giovds.FileUtil.readFile;
-
-public class Day7 {
-    public static void main(String[] args) throws IOException, URISyntaxException {
-        part1(false);
-        part2(true);
+public class Day7 extends Day {
+    public static void main(String[] args) {
+        new Day7();
     }
 
-    private static void part1(final boolean useConcatenation) throws IOException, URISyntaxException {
-        final List<String> equations = readFile(Day7.class, "day7/values.txt");
-
+    @Override
+    protected Number part1() {
         long sum = 0;
-        for (final String line : equations) {
+        for (final String line : inputRows) {
             final String[] split = line.split(": ");
             long testValue = Long.parseLong(split[0]);
             long[] numbers = Arrays.stream(split[1].split(" ")).mapToLong(Long::parseLong).toArray();
 
-            if (combinationOfOperationsIsTestValue(numbers, 0, numbers[0], testValue, useConcatenation)) {
+            if (combinationOfOperationsIsTestValue(numbers, 0, numbers[0], testValue, false)) {
                 sum += testValue;
             }
         }
 
-        System.out.println(sum);
+        return sum;
     }
 
     private static boolean combinationOfOperationsIsTestValue(final long[] numbers, final int index, final long currentValue, final long testValue, boolean useConcatenation) {
@@ -47,8 +42,20 @@ public class Day7 {
         return combinationOfOperationsIsTestValue(numbers, index + 1, currentValue * numbers[index + 1], testValue, useConcatenation);
     }
 
-    private static void part2(final boolean useConcatenation) throws IOException, URISyntaxException {
-        part1(useConcatenation);
+    @Override
+    protected Number part2() {
+        long sum = 0;
+        for (final String line : inputRows) {
+            final String[] split = line.split(": ");
+            long testValue = Long.parseLong(split[0]);
+            long[] numbers = Arrays.stream(split[1].split(" ")).mapToLong(Long::parseLong).toArray();
+
+            if (combinationOfOperationsIsTestValue(numbers, 0, numbers[0], testValue, true)) {
+                sum += testValue;
+            }
+        }
+
+        return sum;
     }
 
     private static long concatenate(final long currentValue, final long number) {

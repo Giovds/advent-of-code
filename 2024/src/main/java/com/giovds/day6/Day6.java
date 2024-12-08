@@ -1,22 +1,20 @@
 package com.giovds.day6;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import com.giovds.Day;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.giovds.FileUtil.readFile;
-
-public class Day6 {
-    public static void main(String[] args) throws IOException, URISyntaxException {
-        part1();
-        part2();
+public class Day6 extends Day {
+    public static void main(String[] args) {
+        new Day6();
     }
 
-    private static void part1() throws IOException, URISyntaxException {
-        final List<String> rows = readFile(Day6.class, "day6/values.txt");
+    @Override
+    protected Number part1() {
+        final List<String> rows = inputRows;
         final char[][] map = new char[rows.size()][rows.getFirst().length()];
         final List<Position> obstaclePositions = new ArrayList<>();
 
@@ -54,7 +52,7 @@ public class Day6 {
             }
         }
 
-        System.out.println(visited.size());
+        return visited.size();
     }
 
     private static boolean leftArea(final Position position, final char[][] map) {
@@ -62,8 +60,9 @@ public class Day6 {
                 position.y() < 0 || position.y() >= map[0].length;
     }
 
-    private static void part2() throws IOException, URISyntaxException {
-        final List<String> rows = readFile(Day6.class, "day6/values.txt");
+    @Override
+    protected Number part2() {
+        final List<String> rows = inputRows;
         final char[][] map = new char[rows.size()][rows.getFirst().length()];
         final List<Position> possibleObstaclePositions = new ArrayList<>();
 
@@ -92,7 +91,7 @@ public class Day6 {
             map[obstacleCandidate.x()][obstacleCandidate.y()] = '.';
         }
 
-        System.out.println(sum);
+        return sum;
     }
 
     private static boolean walksInCircles(final char[][] map, final Guard startingState) {

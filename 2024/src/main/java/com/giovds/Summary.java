@@ -13,8 +13,6 @@ import java.util.List;
 public class Summary {
 
     public static void main(String... args) {
-        System.out.printf("JDK Version: %s, %s\n", System.getProperty("java.version"), System.getProperty("java.vendor"));
-        System.out.printf("Operating System: %s, %s\n", System.getProperty("os.name"), System.getProperty("os.version"));
         try {
             // Define the package to scan
             String packageName = "com.giovds"; // Replace with your package name
@@ -49,11 +47,8 @@ public class Summary {
                 try {
                     Method mainMethod = clazz.getMethod("main", String[].class);
                     if (mainMethod.getReturnType().equals(void.class)) {
-                        long startTime = System.nanoTime();
                         mainMethod.invoke(null, (Object) new String[]{}); // Pass an empty String array as args
-                        long endTime = System.nanoTime();
-
-                        System.out.printf("%s, Time Elapsed: %.2f ms%n", clazz.getSimpleName(), (endTime - startTime) / 1_000_000.0);
+                        System.out.println();
                     }
                 } catch (NoSuchMethodException e) {
                     // Ignore classes without a main method

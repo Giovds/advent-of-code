@@ -1,26 +1,23 @@
 package com.giovds.day8;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import com.giovds.Day;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import static com.giovds.FileUtil.readFile;
-
-public class Day8 {
-    public static void main(String[] args) throws IOException, URISyntaxException {
-        part1();
-        part2();
+public class Day8 extends Day {
+    public static void main(String[] args) {
+        new Day8();
     }
 
-    private static void part1() throws IOException, URISyntaxException {
-        final List<String> strings = readFile(Day8.class, "day8/values.txt");
-        final int xBound = strings.getFirst().length();
-        final int yBound = strings.size();
+    @Override
+    protected Number part1() {
+        final int xBound = inputRows.getFirst().length();
+        final int yBound = inputRows.size();
 
-        final List<Antenna> antennas = getAntennas(strings);
+        final List<Antenna> antennas = getAntennas(inputRows);
         final Set<Position> antinodes = new HashSet<>();
         for (final Antenna antenna : antennas) {
             for (final Antenna otherAntenna : antennas) {
@@ -35,7 +32,7 @@ public class Day8 {
             }
         }
 
-        System.out.println(antinodes.size());
+        return antinodes.size();
     }
 
     private static List<Antenna> getAntennas(final List<String> strings) {
@@ -62,12 +59,12 @@ public class Day8 {
         return x >= 0 && x < xMax && y >= 0 && y < yMax;
     }
 
-    private static void part2() throws IOException, URISyntaxException {
-        final List<String> strings = readFile(Day8.class, "day8/values.txt");
-        final int xBound = strings.getFirst().length();
-        final int yBound = strings.size();
+    @Override
+    protected Number part2() {
+        final int xBound = inputRows.getFirst().length();
+        final int yBound = inputRows.size();
 
-        final List<Antenna> antennas = getAntennas(strings);
+        final List<Antenna> antennas = getAntennas(inputRows);
         final Set<Position> antinodes = new HashSet<>();
         for (final Antenna antenna : antennas) {
             for (final Antenna otherAntenna : antennas) {
@@ -82,7 +79,7 @@ public class Day8 {
             }
         }
 
-        System.out.println(antinodes.size());
+        return antinodes.size();
     }
 
     private static Set<Position> getAntinodePositions(final Antenna antenna, final Antenna otherAntenna, final int xBound, final int yBound) {

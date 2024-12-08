@@ -1,23 +1,21 @@
 package com.giovds.day4;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import com.giovds.Day;
+
 import java.util.List;
 
-import static com.giovds.FileUtil.readFile;
-
-public class Day4 {
+public class Day4 extends Day {
     private final static String XMAS = "XMAS";
     private final static String XMAS_DIAGONAL = "MAS";
     private final static String XMAS_DIAGONAL_REVERSE = new StringBuilder(XMAS_DIAGONAL).reverse().toString();
 
-    public static void main(String... args) throws IOException, URISyntaxException {
-        part1();
-        part2();
+    public static void main(String[] args) {
+        new Day4();
     }
 
-    private static void part1() throws IOException, URISyntaxException {
-        final String[] rows = readFile(Day4.class, "day4/values.txt").toArray(String[]::new);
+    @Override
+    protected Number part1() {
+        final String[] rows = inputRows.toArray(String[]::new);
 
         int sum = 0;
         for (int row = 0; row < rows.length; row++) {
@@ -30,7 +28,7 @@ public class Day4 {
             }
         }
 
-        System.out.println(sum);
+        return sum;
     }
 
     private static boolean searchXmasInDirection(final String[] grid, final int startRow, final int startCol,
@@ -65,8 +63,9 @@ public class Day4 {
         return rowIndex < 0 || rowIndex >= rows || columnIndex < 0 || columnIndex >= columns;
     }
 
-    private static void part2() throws IOException, URISyntaxException {
-        final String[] rows = readFile(Day4.class, "day4/values.txt").toArray(String[]::new);
+    @Override
+    protected Number part2() {
+        final String[] rows = inputRows.toArray(String[]::new);
 
         int sum = 0;
         // Iterate over 3x3 grids, starting in the center
@@ -78,7 +77,7 @@ public class Day4 {
             }
         }
 
-        System.out.println(sum);
+        return sum;
     }
 
     private static boolean isXMASPattern(final String[] grid, final int startRow, final int startCol) {

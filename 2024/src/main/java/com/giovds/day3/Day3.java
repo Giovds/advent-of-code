@@ -1,31 +1,24 @@
 package com.giovds.day3;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.List;
+import com.giovds.Day;
+
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.giovds.FileUtil.readFile;
-
-public class Day3 {
+public class Day3 extends Day {
     private final static Pattern multiplyPattern = Pattern.compile("mul\\((\\d{1,3}),(\\d{1,3})\\)");
 
-    public static void main(String... args) throws IOException, URISyntaxException {
-        part1();
-        part2();
+    public static void main(String[] args) {
+        new Day3();
     }
 
-    private static void part1() throws IOException, URISyntaxException {
-        final List<String> corruptedMemory = readFile(Day3.class, "day3/values.txt");
-
-        final int sum = corruptedMemory.stream()
+    @Override
+    protected Number part1() {
+        return inputRows.stream()
                 .flatMap(memory -> multiplyPattern.matcher(memory).results())
                 .mapToInt(Day3::multiplyMatches)
                 .sum();
-
-        System.out.println(sum);
     }
 
     private static int multiplyMatches(final MatchResult result) {
@@ -34,12 +27,11 @@ public class Day3 {
         return firstNumber * secondNumber;
     }
 
-    private static void part2() throws IOException, URISyntaxException {
-        final List<String> corruptedMemory = readFile(Day3.class, "day3/values.txt");
-
+    @Override
+    protected Number part2() {
         int sum = 0;
         boolean enableMultiplier = true;
-        for (final String memory : corruptedMemory) {
+        for (final String memory : inputRows) {
             final StringBuilder buffer = new StringBuilder();
             for (final char nextChar : memory.toCharArray()) {
                 buffer.append(nextChar);
@@ -66,7 +58,7 @@ public class Day3 {
                 }
             }
         }
-        System.out.println(sum);
+        return sum;
     }
 
     private static void clearBuffer(final StringBuilder buffer) {

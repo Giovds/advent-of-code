@@ -1,22 +1,19 @@
 package com.giovds.day5;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import com.giovds.Day;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.giovds.FileUtil.readFile;
-
-public class Day5 {
-    public static void main(String... args) throws IOException, URISyntaxException {
-        part1();
-        part2();
+public class Day5 extends Day {
+    public static void main(String[] args) {
+        new Day5();
     }
 
-    private static void part1() throws IOException, URISyntaxException {
-        final List<String> strings = readFile(Day5.class, "day5/values.txt");
-        final List<UpdateWithRules> updatesWithRules = parseUpdatesWithRules(strings);
+    @Override
+    protected Number part1() {
+        final List<UpdateWithRules> updatesWithRules = parseUpdatesWithRules(inputRows);
 
         int sum = 0;
         for (final UpdateWithRules updatesWithRule : updatesWithRules) {
@@ -26,7 +23,7 @@ public class Day5 {
                 sum += getMiddlePage(update);
             }
         }
-        System.out.println(sum);
+        return sum;
     }
 
     private static int getMiddlePage(final Update update) {
@@ -80,9 +77,9 @@ public class Day5 {
         return update.pages().contains(rule.firstPage()) && update.pages().contains(rule.secondPage());
     }
 
-    private static void part2() throws IOException, URISyntaxException {
-        final List<String> strings = readFile(Day5.class, "day5/values.txt");
-        final List<UpdateWithRules> updatesWithRules = parseUpdatesWithRules(strings);
+    @Override
+    protected Number part2() {
+        final List<UpdateWithRules> updatesWithRules = parseUpdatesWithRules(inputRows);
 
         int sum = 0;
         for (final UpdateWithRules updatesWithRule : updatesWithRules) {
@@ -93,7 +90,7 @@ public class Day5 {
                 sum += getMiddlePage(correctedUpdate);
             }
         }
-        System.out.println(sum);
+        return sum;
     }
 
     private static Update createCorrectedUpdate(final Update update, final List<Rule> rulesToApply) {

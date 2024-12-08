@@ -1,29 +1,27 @@
 package com.giovds.day2;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import com.giovds.Day;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.giovds.FileUtil.readFile;
-
-public class Day2 {
-    public static void main(final String... args) throws IOException, URISyntaxException {
-        part1();
-        part2();
+public class Day2 extends Day {
+    public static void main(String... args) {
+        new Day2();
     }
 
-    private static void part1() throws IOException, URISyntaxException {
+    @Override
+    protected Number part1() {
         final List<List<Integer>> reports = getReports();
 
-        long safeReportCounter = reports.stream()
+        return reports.stream()
                 .filter(Day2::isSafe)
                 .count();
-        System.out.println(safeReportCounter);
     }
 
-    private static void part2() throws IOException, URISyntaxException {
+    @Override
+    protected Number part2() {
         final List<List<Integer>> reports = getReports();
 
         int safeReportCounter = 0;
@@ -35,7 +33,7 @@ public class Day2 {
             }
         }
 
-        System.out.println(safeReportCounter);
+        return safeReportCounter;
     }
 
     private static boolean canBeSafeByRemovingOneLevel(final List<Integer> report) {
@@ -77,9 +75,8 @@ public class Day2 {
         return true;
     }
 
-    private static List<List<Integer>> getReports() throws IOException, URISyntaxException {
-        final List<String> reports = readFile(Day2.class, "day2/values.txt");
-        return reports.stream()
+    private List<List<Integer>> getReports() {
+        return inputRows.stream()
                 .map(report -> report.split(" "))
                 .map(reportsAsString -> Arrays.stream(reportsAsString).mapToInt(Integer::parseInt).boxed().toList())
                 .toList();
