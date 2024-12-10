@@ -16,7 +16,7 @@ public abstract class Day {
 
     protected Day(final boolean printAnswers, final boolean useExample) {
         this.printAnswers = printAnswers;
-        final String fileName = useExample ? "example" : "values";
+        final String fileName = useExample ? "examples" : "values";
         try {
             inputRows = readFile(getClass(), "%s/%s.txt".formatted(getClass().getSimpleName(), fileName));
             run();
